@@ -27,8 +27,8 @@ module test_bench();
         wire [8:0] RES;
         wire ERR, OFLOW, COUT;
         wire [2:0] EGL;
-        wire [14:0] expected_data;  // check the width
-        reg [14:0] exact_data;   // check the width
+        wire [14:0] expected_data;  
+        reg [14:0] exact_data;   
 
         task read_stimulus();
                 begin
@@ -121,7 +121,7 @@ module test_bench();
         assign expected_data = {err,Expected_RES,ov,cout,Comparison_EGL};
 
         //SCORE BOARD PROGRAM TO CHECK THE DUT OP WITH EXPECTD OP
-  reg [45:0] scb_stimulus_mem [0:`no_of_testcase-1];  // chech the width part
+  reg [45:0] scb_stimulus_mem [0:`no_of_testcase-1];  
 
         task score_board();
         reg [14:0] expected_res;
@@ -149,7 +149,7 @@ module test_bench();
 //Generating the report `no_of_testcase-1
         task gen_report;
         integer file_id,pointer;
-        reg [45:0] status;   // again check the width
+        reg [45:0] status;  
                 begin
                 file_id = $fopen("results.txt", "w");
       for(pointer = 0; pointer <= `no_of_testcase-1 ; pointer = pointer+1 )
