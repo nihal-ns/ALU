@@ -122,7 +122,6 @@ module new_alu #(parameter WIDTH = 8, CMD_WIDTH = 4)(
           2'b11: begin
                     OPA_temp = OPA_Buf;
                     OPB_temp = OPB_Buf;
-//                    RES_temp = 0;
                    end
 
           default: begin
@@ -192,10 +191,9 @@ module new_alu #(parameter WIDTH = 8, CMD_WIDTH = 4)(
                       SP_1_ADD: begin
                                   RES_temp = $signed(OPA_temp) + $signed(OPB_temp);
                                   COUT_temp = RES_temp[WIDTH];
-                                  //OFLOW_temp = (OPA_temp[WIDTH - 1] == OPB_temp[WIDTH - 1]) & (OPB_temp[WIDTH - 1] != RES_temp[WIDTH - 1]);
                                   OFLOW_temp = ~(OPA_temp[WIDTH - 1] ^ OPB_temp[WIDTH - 1]) & (OPA_temp[WIDTH - 1] ^ RES_temp[WIDTH - 1]);
 
-                                  E_temp = $signed(OPA_temp) == $signed(OPB_temp);// yet to check for other conditions
+                                  E_temp = $signed(OPA_temp) == $signed(OPB_temp);
                                   G_temp = $signed(OPA_temp) > $signed(OPB_temp);
                                   L_temp = $signed(OPA_temp) < $signed(OPB_temp);
                                 end
@@ -203,11 +201,9 @@ module new_alu #(parameter WIDTH = 8, CMD_WIDTH = 4)(
                       SP_2_SUB: begin
                                   RES_temp = $signed(OPA_temp) - $signed(OPB_temp);
                                   COUT_temp = RES_temp[WIDTH];
-                                  //check the overflow condition again
-                                  //OFLOW_temp = (OPA_temp[WIDTH - 1] == OPB_temp[WIDTH - 1]) & ( ~RES_temp[WIDTH]);
                                   OFLOW_temp = (OPA_temp[WIDTH - 1] ^ OPB_temp[WIDTH - 1]) & (OPA_temp[WIDTH - 1] ^ RES_temp[WIDTH - 1]);
 
-                                  E_temp = $signed(OPA_temp) == $signed(OPB_temp);// yet to check for other conditions
+                                  E_temp = $signed(OPA_temp) == $signed(OPB_temp);
                                   G_temp = $signed(OPA_temp) > $signed(OPB_temp);
                                   L_temp = $signed(OPA_temp) < $signed(OPB_temp);
                                 end
